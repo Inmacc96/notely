@@ -5,7 +5,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Notely",
-  description: "",
+  description: "Application that allows users to manage their tasks with notes",
 };
 
 export default function RootLayout({
