@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ArrowDown from "./icons/ArrowDown";
-import ArrowUp from "./icons/ArrowUp";
 
 type SelectInputProps = {
   options: string[];
@@ -22,11 +21,19 @@ const SelectInput: React.FC<SelectInputProps> = ({ options }) => {
         }`}
       >
         <p>{selectedOption}</p>
-        {isOpen ? <ArrowUp /> : <ArrowDown />}
+        <span
+          className={`transition-transform duration-350 ${
+            isOpen ? "rotate-180" : "rotate-0"
+          }`}
+        >
+          <ArrowDown />
+        </span>
       </button>
       <ul
-        className={`absolute z-10 mt-2 w-full max-h-56 overflow-auto rounded-md bg-backgroundMain border border-[#0000001F] py-4 shadow-lg ${
-          isOpen ? "block" : "hidden"
+        className={`absolute z-10 mt-2 w-full max-h-56 overflow-auto rounded-md bg-backgroundMain border border-[#0000001F] py-4 shadow-lg transition-all duration-300 ${
+          isOpen
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-2 pointer-events-none"
         }`}
       >
         {options.map((option, index) => (
