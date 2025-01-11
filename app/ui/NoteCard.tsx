@@ -28,7 +28,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
     <article className="bg-white rounded-2xl p-5 h-[248px] flex flex-col gap-4 shadow-lg">
       <div className="flex justify-between">
         <BadgeCategory category={category} />
-        <div className="flex gap-1.5 items-center text-gray-600 mr-3">
+        <div className="flex gap-1.5 items-center text-gray-600 mr-1.5">
           <button>
             <CheckboxOutlineIcon />
           </button>
