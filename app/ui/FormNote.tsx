@@ -87,7 +87,7 @@ const FormNote: React.FC = () => {
         <button
           type="submit"
           onClick={handleClick}
-          className="bg-blue-400 hover:bg-blue-500 rounded-full px-4 py-2 text-white gap-2"
+          className="font-medium text-base tracking-widest bg-blue-400 hover:bg-blue-500 rounded-full px-4 py-2 text-white gap-2"
         >
           <p>Add</p>
         </button>
