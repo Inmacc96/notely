@@ -4,10 +4,11 @@ import SelectInput from "./SelectInput";
 import { Note } from "../lib/type";
 import { CATEGORIES } from "../lib/constants";
 
-type formData = Omit<Note, "createdAt">;
+type formData = Omit<Note, "id" | "createdAt">;
 
 const FormNote: React.FC = () => {
   const closeModal = useStore((state) => state.closeModal);
+  const addNote = useStore((state) => state.addNote);
   const [formData, setFormData] = useState<formData>({
     title: "",
     category: "Personal",
@@ -21,12 +22,12 @@ const FormNote: React.FC = () => {
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    //Validation
-    if (formData.title.length === 0) {
-      setValidationError("This field is required");
-    } else {
-      setValidationError("");
-    }
+    setValidationError(
+      formData.title.length === 0 ? "This field is required" : ""
+    );
+    if (validationError) return;
+    addNote({ ...formData, id: crypto.randomUUID(), createdAt: new Date() });
+    closeModal();
   };
 
   return (
