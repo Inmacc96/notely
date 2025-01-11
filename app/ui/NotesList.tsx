@@ -9,7 +9,7 @@ const NotesList = () => {
   }, [notes]);
 
   return (
-    <section className="grid grid-cols-3 gap-6">
+    <section className="grid grid-cols-[repeat(3,_minmax(400px,_1fr))] gap-6">
       {sortedNotes.map((note) => (
         <NoteCard key={note.id} note={note} />
       ))}
