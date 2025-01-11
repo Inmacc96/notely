@@ -1,7 +1,18 @@
 import { useStore } from "../lib/store";
 
-const AlertConfirmDelete = () => {
+type AlertConfirmDeleteProps = {
+  noteId: string;
+};
+
+const AlertConfirmDelete: React.FC<AlertConfirmDeleteProps> = ({ noteId }) => {
   const closeModal = useStore((state) => state.closeModal);
+  const deleteNote = useStore((state) => state.deleteNote);
+
+  const handleDeleteNote = () => {
+    deleteNote(noteId);
+    closeModal();
+  };
+
   return (
     <div className="w-[320px]">
       <p className="text-gray-900-87">
@@ -16,7 +27,8 @@ const AlertConfirmDelete = () => {
           Cancel
         </button>
         <button
-          type="submit"
+          type="button"
+          onClick={handleDeleteNote}
           className="font-medium text-base tracking-wider bg-red-400 hover:bg-red-500 rounded-full px-4 py-2 text-white gap-2"
         >
           Delete

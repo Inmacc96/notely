@@ -24,7 +24,7 @@ const MODAL_CONFIGS: ModalConfigs = {
   },
   delete: {
     title: "Delete note",
-    content: () => <AlertConfirmDelete />,
+    content: (payload) => <AlertConfirmDelete noteId={payload as string} />,
   },
 };
 

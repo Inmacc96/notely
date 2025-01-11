@@ -21,7 +21,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
   };
 
   const handleDeleteNote = () => {
-    showModal("delete");
+    showModal("delete", note.id);
   };
 
   return (
