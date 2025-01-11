@@ -33,10 +33,10 @@ const Modal = () => {
   const { title, content } = MODAL_CONFIGS[actionType];
 
   return (
-    <div className="inset-0 fixed bg-[#00000052] flex items-center justify-center">
+    <div className="inset-0 fixed bg-black-32 flex items-center justify-center">
       <div className="rounded-xl shadow-xl bg-white p-6 w-[600px] space-y-4">
         <div className="flex justify-between items-center">
-          <p className="text-lg font-semibold text-[#212121DE]">{title}</p>
+          <p className="text-2xl font-semibold text-gray-900-87">{title}</p>
           <button onClick={closeModal} className="p-1">
             <CloseIcon />
           </button>

@@ -10,7 +10,7 @@ const AddNoteButton = () => {
       onClick={() => {
         showModal("create");
       }}
-      className="bg-[#42A5F5] rounded-full px-5 py-3 flex items-center text-white gap-2 hover:bg-[#2196F3]"
+      className="bg-blue-400 rounded-full px-5 py-3 flex items-center text-white gap-2 hover:bg-blue-500"
     >
       <PlusIcon />
       <p>Add</p>

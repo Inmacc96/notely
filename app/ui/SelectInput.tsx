@@ -23,8 +23,8 @@ const SelectInput: React.FC<SelectInputProps> = ({ options, onSelect }) => {
         onClick={() => {
           setIsOpen(!isOpen);
         }}
-        className={`w-full flex justify-between items-center text-sm text-primary bg-backgroundMain focus:outline-none rounded-md font-medium p-3 border ${
-          isOpen ? "border-[#42A5F5]" : "border-[#0000001F]"
+        className={`w-full flex justify-between items-center text-sm text-gray-900-87 bg-gray-200 focus:outline-none rounded-md font-medium p-3 border ${
+          isOpen ? "border-blue-400" : "border-black-12"
         }`}
       >
         <p>{selectedOption}</p>
@@ -37,7 +37,7 @@ const SelectInput: React.FC<SelectInputProps> = ({ options, onSelect }) => {
         </span>
       </button>
       <ul
-        className={`absolute z-10 mt-2 w-full max-h-56 overflow-auto rounded-md bg-backgroundMain border border-[#0000001F] py-4 shadow-lg transition-all duration-300 ${
+        className={`absolute z-10 mt-2 w-full max-h-56 overflow-auto rounded-md bg-gray-200 border border-black-12 py-4 shadow-lg transition-all duration-300 ${
           isOpen
             ? "opacity-100 translate-y-0"
             : "opacity-0 -translate-y-2 pointer-events-none"
@@ -46,10 +46,10 @@ const SelectInput: React.FC<SelectInputProps> = ({ options, onSelect }) => {
         {options.map((option, index) => (
           <li
             key={index}
-            className={`text-sm hover:bg-[#0000001F] hover:text-primary px-4 py-3 cursor-pointer font-medium ${
+            className={`text-sm hover:bg-black-12 hover:text-gray-900-87 px-4 py-3 cursor-pointer font-medium ${
               option === selectedOption
-                ? "bg-[#0000001F] text-primary"
-                : "text-secondary"
+                ? "bg-black-12 text-gray-900-87"
+                : "text-gray-900-60"
             }`}
             onClick={() => handleSelect(option)}
           >
