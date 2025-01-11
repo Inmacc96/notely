@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ArrowDown from "./icons/ArrowDown";
+import ArrowDown from "./icons/ArrowDownIcon";
 
 type SelectInputProps = {
   options: readonly string[];

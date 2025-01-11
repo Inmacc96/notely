@@ -1,13 +1,9 @@
-import { useStore } from "../lib/store";
+import NotesList from "./NotesList";
 
 const NotesView = () => {
-  const notes = useStore((state) => state.notes);
-
   return (
-    <main className="flex-1 overflow-y-scroll bg-gray-200">
-      {notes.map((note) => (
-        <div key={note.id}>{note.title}</div>
-      ))}
+    <main className="flex-1 overflow-y-scroll bg-gray-200 p-4">
+      <NotesList />
     </main>
   );
 };

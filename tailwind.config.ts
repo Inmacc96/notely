@@ -38,7 +38,7 @@ export default {
         900: "#1B5E20",
         200: "#A5D6A7",
       },
-      deepPurple: {
+      purple: {
         200: "#B39DDB",
         900: "#4527A0",
       },
