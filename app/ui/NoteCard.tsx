@@ -1,3 +1,4 @@
+import { useStore } from "../lib/store";
 import { Note } from "../lib/type";
 import { formatDate } from "../lib/utils";
 import BadgeCategory from "./BadgeCategory";
@@ -10,9 +11,15 @@ type NoteCardProps = {
   note: Note;
 };
 
-const NoteCard: React.FC<NoteCardProps> = ({
-  note: { title, description, category, createdAt },
-}) => {
+const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
+  const { title, description, category, createdAt } = note;
+
+  const showModal = useStore((state) => state.showModal);
+
+  const handleEditNote = () => {
+    showModal("edit", note);
+  };
+
   return (
     <article className="bg-white rounded-2xl p-5 h-[248px] flex flex-col gap-4 shadow-lg">
       <div className="flex justify-between">
@@ -22,7 +29,10 @@ const NoteCard: React.FC<NoteCardProps> = ({
             <CheckboxOutlineIcon />
           </button>
           <div className="relative">
-            <button className="peer p-2 rounded-full hover:bg-black-12 transition-all duration-300">
+            <button
+              onClick={handleEditNote}
+              className="peer p-2 rounded-full hover:bg-black-12 transition-all duration-300"
+            >
               <PencilIcon />
             </button>
             <p className="bg-gray-600 text-white rounded-md p-2 text-sm mt-2 absolute peer-hover:opacity-100 opacity-0">

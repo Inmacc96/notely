@@ -1,13 +1,13 @@
 "use client";
 
 import { useStore } from "../lib/store";
-import { ActionType } from "../lib/type";
+import { ActionType, Note } from "../lib/type";
 import FormNote from "./FormNote";
 import CloseIcon from "./icons/CloseIcon";
 
 type Config = {
   title: string;
-  content: React.ReactNode;
+  content: (payload?: unknown) => React.ReactNode;
 };
 
 type ModalConfigs = Record<ActionType, Config>;
@@ -15,20 +15,20 @@ type ModalConfigs = Record<ActionType, Config>;
 const MODAL_CONFIGS: ModalConfigs = {
   create: {
     title: "Add note",
-    content: <FormNote />,
+    content: () => <FormNote />,
   },
   edit: {
     title: "Edit note",
-    content: "",
+    content: (payload) => <FormNote note={payload as Note} />,
   },
   delete: {
     title: "Delete note",
-    content: "",
+    content: () => <></>,
   },
 };
 
 const Modal = () => {
-  const actionType = useStore((state) => state.modal.actionType);
+  const { actionType, payload } = useStore((state) => state.modal);
   const closeModal = useStore((state) => state.closeModal);
   const { title, content } = MODAL_CONFIGS[actionType];
 
@@ -44,7 +44,7 @@ const Modal = () => {
             <CloseIcon />
           </button>
         </div>
-        {content}
+        {content(payload)}
       </div>
     </div>
   );

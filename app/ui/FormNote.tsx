@@ -6,13 +6,17 @@ import { CATEGORIES } from "../lib/constants";
 
 type formData = Omit<Note, "id" | "createdAt">;
 
-const FormNote: React.FC = () => {
+type FormNoteProps = {
+  note?: Note;
+};
+
+const FormNote: React.FC<FormNoteProps> = ({ note }) => {
   const closeModal = useStore((state) => state.closeModal);
   const addNote = useStore((state) => state.addNote);
   const [formData, setFormData] = useState<formData>({
-    title: "",
-    category: "Personal",
-    description: "",
+    title: note?.title ?? "",
+    category: note?.category ?? "Personal",
+    description: note?.description ?? "",
   });
   const [validationError, setValidationError] = useState("");
 
@@ -89,7 +93,7 @@ const FormNote: React.FC = () => {
           onClick={handleClick}
           className="font-medium text-base tracking-widest bg-blue-400 hover:bg-blue-500 rounded-full px-4 py-2 text-white gap-2"
         >
-          <p>Add</p>
+          {note?.id ? "Edit" : "Add"}
         </button>
       </div>
     </form>
