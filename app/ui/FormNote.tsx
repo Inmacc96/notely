@@ -13,6 +13,7 @@ const FormNote: React.FC = () => {
     category: "Personal",
     description: "",
   });
+  const [validationError, setValidationError] = useState("");
 
   const handleChange = (property: keyof formData, value: string) => {
     setFormData((prev) => ({ ...prev, [property]: value }));
@@ -20,14 +21,20 @@ const FormNote: React.FC = () => {
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    console.log(formData);
+    //Validation
+    if (formData.title.length === 0) {
+      setValidationError("This field is required");
+    } else {
+      setValidationError("");
+    }
   };
 
   return (
-    <form className="grid grid-cols-2 gap-x-6 gap-y-7">
-      <div className="col-span-1 space-y-2">
+    <form className="grid grid-cols-2 gap-x-6">
+      <div className="relative col-span-1 space-y-2">
         <label className="text-sm font-bold text-primary" htmlFor="title">
           Title
+          <span className="text-[#EF5350] ml-0.5">*</span>
         </label>
         <input
           id="title"
@@ -37,6 +44,7 @@ const FormNote: React.FC = () => {
           value={formData.title}
           onChange={(e) => handleChange("title", e.target.value)}
         />
+        <p className="text-[#EF5350] text-xs absolute">{validationError}</p>
       </div>
       <div className="col-span-1 space-y-2">
         <label className="text-sm font-bold text-primary">Category</label>
@@ -45,7 +53,7 @@ const FormNote: React.FC = () => {
           onSelect={(option) => handleChange("category", option)}
         />
       </div>
-      <div className="col-span-2 space-y-2">
+      <div className="col-span-2 space-y-2 mt-8">
         <div className="flex justify-between">
           <label
             className="text-sm font-bold text-primary"
@@ -67,7 +75,7 @@ const FormNote: React.FC = () => {
           onChange={(e) => handleChange("description", e.target.value)}
         />
       </div>
-      <div className="col-span-2 flex justify-end itemse-center gap-8">
+      <div className="col-span-2 flex justify-end items-center gap-8 mt-6">
         <button
           onClick={closeModal}
           className="text-[#656565] hover:text-[#212121DE]"
