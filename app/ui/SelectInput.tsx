@@ -2,12 +2,19 @@ import { useState } from "react";
 import ArrowDown from "./icons/ArrowDown";
 
 type SelectInputProps = {
-  options: string[];
+  options: readonly string[];
+  onSelect: (option: string) => void;
 };
 
-const SelectInput: React.FC<SelectInputProps> = ({ options }) => {
+const SelectInput: React.FC<SelectInputProps> = ({ options, onSelect }) => {
   const [selectedOption, setSelectedOption] = useState(options[0]);
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleSelect = (option: string) => {
+    setSelectedOption(option);
+    onSelect(option);
+    setIsOpen(false);
+  };
 
   return (
     <div className="relative">
@@ -44,10 +51,7 @@ const SelectInput: React.FC<SelectInputProps> = ({ options }) => {
                 ? "bg-[#0000001F] text-primary"
                 : "text-secondary"
             }`}
-            onClick={() => {
-              setSelectedOption(option);
-              setIsOpen(false);
-            }}
+            onClick={() => handleSelect(option)}
           >
             {option}
           </li>
