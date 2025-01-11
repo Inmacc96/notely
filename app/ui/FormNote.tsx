@@ -25,7 +25,7 @@ const FormNote: React.FC<FormNoteProps> = ({ note }) => {
     setFormData((prev) => ({ ...prev, [property]: value }));
   };
 
-  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (formData.title.length === 0) {
       setValidationError("This field is required");
@@ -41,7 +41,7 @@ const FormNote: React.FC<FormNoteProps> = ({ note }) => {
   };
 
   return (
-    <form className="grid grid-cols-2 gap-x-6">
+    <form className="grid grid-cols-2 gap-x-6" onSubmit={handleSubmit}>
       <div className="relative col-span-1 space-y-2">
         <label className="text-sm font-bold text-gray-900-87" htmlFor="title">
           Title
@@ -54,6 +54,11 @@ const FormNote: React.FC<FormNoteProps> = ({ note }) => {
           className="block w-full text-sm text-gray-900-87 bg-gray-200 border border-black-12 focus:outline-none focus:border-blue-400 rounded-md placeholder:text-gray-900-60 font-medium p-3"
           value={formData.title}
           onChange={(e) => handleChange("title", e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+            }
+          }}
         />
         <p className="text-red-400 text-xs absolute">{validationError}</p>
       </div>
@@ -88,6 +93,7 @@ const FormNote: React.FC<FormNoteProps> = ({ note }) => {
       </div>
       <div className="col-span-2 flex justify-end items-center gap-8 mt-6">
         <button
+          type="button"
           onClick={closeModal}
           className="font-medium text-base text-gray-600 hover:text-gray-900-87 tracking-widest"
         >
@@ -95,7 +101,6 @@ const FormNote: React.FC<FormNoteProps> = ({ note }) => {
         </button>
         <button
           type="submit"
-          onClick={handleClick}
           className="font-medium text-base tracking-widest bg-blue-400 hover:bg-blue-500 rounded-full px-4 py-2 text-white gap-2"
         >
           {note?.id ? "Edit" : "Add"}
