@@ -41,7 +41,10 @@ const FormNote: React.FC<FormNoteProps> = ({ note }) => {
   };
 
   return (
-    <form className="grid grid-cols-2 gap-x-6" onSubmit={handleSubmit}>
+    <form
+      className="w-[500px] grid grid-cols-2 gap-x-6"
+      onSubmit={handleSubmit}
+    >
       <div className="relative col-span-1 space-y-2">
         <label className="text-sm font-bold text-gray-900-87" htmlFor="title">
           Title
