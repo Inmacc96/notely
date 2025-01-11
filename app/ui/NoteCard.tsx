@@ -20,11 +20,15 @@ const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
     showModal("edit", note);
   };
 
+  const handleDeleteNote = () => {
+    showModal("delete");
+  };
+
   return (
     <article className="bg-white rounded-2xl p-5 h-[248px] flex flex-col gap-4 shadow-lg">
       <div className="flex justify-between">
         <BadgeCategory category={category} />
-        <div className="flex gap-3.5 items-center text-gray-600 mr-3">
+        <div className="flex gap-1.5 items-center text-gray-600 mr-3">
           <button>
             <CheckboxOutlineIcon />
           </button>
@@ -39,9 +43,17 @@ const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
               Edit
             </p>
           </div>
-          <button>
-            <TrashIcon />
-          </button>
+          <div className="relative">
+            <button
+              onClick={handleDeleteNote}
+              className="peer p-2 rounded-full hover:bg-black-12 transition-all duration-300"
+            >
+              <TrashIcon />
+            </button>
+            <p className="left-1/2 -translate-x-1/2 bg-gray-600 text-white rounded-md p-2 text-sm mt-2 absolute peer-hover:opacity-100 opacity-0 mr-2">
+              Delete
+            </p>
+          </div>
         </div>
       </div>
       <p className="text-gray-900-87 font-semibold text-2xl">{title}</p>
