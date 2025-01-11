@@ -12,7 +12,7 @@ type NoteCardProps = {
 };
 
 const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
-  const { title, description, category, createdAt } = note;
+  const { title, description, category, updatedAt } = note;
 
   const showModal = useStore((state) => state.showModal);
 
@@ -49,7 +49,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
         {description && <p className="text-gray-900-87">{description}</p>}
       </div>
       <p className={`text-end text-sm text-gray-900-60 ${nunito.className}`}>
-        {formatDate(createdAt)}
+        {formatDate(updatedAt)}
       </p>
     </article>
   );

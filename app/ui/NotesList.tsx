@@ -5,7 +5,7 @@ import NoteCard from "./NoteCard";
 const NotesList = () => {
   const notes = useStore((state) => state.notes);
   const sortedNotes = useMemo(() => {
-    return notes.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    return notes.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
   }, [notes]);
 
   return (
