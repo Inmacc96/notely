@@ -21,9 +21,14 @@ const NoteCard: React.FC<NoteCardProps> = ({
           <button>
             <CheckboxOutlineIcon />
           </button>
-          <button>
-            <PencilIcon />
-          </button>
+          <div className="relative">
+            <button className="peer p-2 rounded-full hover:bg-black-12 transition-all duration-300">
+              <PencilIcon />
+            </button>
+            <p className="bg-gray-600 text-white rounded-md p-2 text-sm mt-2 absolute peer-hover:opacity-100 opacity-0">
+              Edit
+            </p>
+          </div>
           <button>
             <TrashIcon />
           </button>
