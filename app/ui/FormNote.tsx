@@ -22,10 +22,11 @@ const FormNote: React.FC = () => {
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    setValidationError(
-      formData.title.length === 0 ? "This field is required" : ""
-    );
-    if (validationError) return;
+    if (formData.title.length === 0) {
+      setValidationError("This field is required");
+      return;
+    }
+    setValidationError("");
     addNote({ ...formData, id: crypto.randomUUID(), createdAt: new Date() });
     closeModal();
   };
