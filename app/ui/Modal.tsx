@@ -34,7 +34,7 @@ const Modal = () => {
 
   return (
     <div className="inset-0 fixed bg-[#00000052] flex items-center justify-center">
-      <div className="rounded-xl shadow-xl bg-white p-6 w-[600px] space-y-7">
+      <div className="rounded-xl shadow-xl bg-white p-6 w-[600px] space-y-4">
         <div className="flex justify-between items-center">
           <p className="text-lg font-semibold text-[#212121DE]">{title}</p>
           <button onClick={closeModal} className="p-1">
