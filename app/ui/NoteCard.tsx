@@ -14,7 +14,8 @@ type NoteCardProps = {
 };
 
 const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
-  const { id, title, description, category, updatedAt, isCompleted } = note;
+  const { id, title, description, category, updatedAt, completedAt } = note;
+  const isCompleted = !!completedAt;
 
   const showModal = useStore((state) => state.showModal);
   const toggleCompleted = useStore((state) => state.toggleCompleted);
@@ -30,6 +31,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
   const handleCompleteNote = () => {
     toggleCompleted(id);
   };
+
 
   return (
     <article className="bg-white rounded-2xl p-5 h-[248px] flex flex-col gap-4 shadow-lg">
