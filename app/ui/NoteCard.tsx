@@ -1,8 +1,10 @@
 import { useStore } from "../lib/store";
 import { Note } from "../lib/type";
 import { formatDate } from "../lib/utils";
+import ActionButton from "./ActionButton";
 import BadgeCategory from "./BadgeCategory";
 import { nunito } from "./fonts";
+import ChecboxIcon from "./icons/ChecboxIcon";
 import CheckboxOutlineIcon from "./icons/CheckboxOutlineIcon";
 import PencilIcon from "./icons/PencilIcon";
 import TrashIcon from "./icons/TrashIcon";
@@ -12,9 +14,10 @@ type NoteCardProps = {
 };
 
 const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
-  const { title, description, category, updatedAt } = note;
+  const { id, title, description, category, updatedAt, isCompleted } = note;
 
   const showModal = useStore((state) => state.showModal);
+  const toggleCompleted = useStore((state) => state.toggleCompleted);
 
   const handleEditNote = () => {
     showModal("edit", note);
@@ -24,41 +27,52 @@ const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
     showModal("delete", note.id);
   };
 
+  const handleCompleteNote = () => {
+    toggleCompleted(id);
+  };
+
   return (
     <article className="bg-white rounded-2xl p-5 h-[248px] flex flex-col gap-4 shadow-lg">
       <div className="flex justify-between">
-        <BadgeCategory category={category} />
-        <div className="flex gap-1.5 items-center text-gray-600 mr-1.5">
-          <button>
-            <CheckboxOutlineIcon />
-          </button>
-          <div className="relative">
-            <button
-              onClick={handleEditNote}
-              className="peer p-2 rounded-full hover:bg-black-12 transition-all duration-300"
-            >
-              <PencilIcon />
-            </button>
-            <p className="bg-gray-600 text-white rounded-md p-2 text-sm mt-2 absolute peer-hover:opacity-100 opacity-0">
-              Edit
-            </p>
-          </div>
-          <div className="relative">
-            <button
-              onClick={handleDeleteNote}
-              className="peer p-2 rounded-full hover:bg-black-12 transition-all duration-300"
-            >
-              <TrashIcon />
-            </button>
-            <p className="left-1/2 -translate-x-1/2 bg-gray-600 text-white rounded-md p-2 text-sm mt-2 absolute peer-hover:opacity-100 opacity-0 mr-2">
-              Delete
-            </p>
-          </div>
+        <BadgeCategory category={category} isNeutralStyle={isCompleted} />
+        <div className="flex gap-1.5 items-center mr-1.5">
+          <ActionButton
+            onClick={handleCompleteNote}
+            Icon={isCompleted ? ChecboxIcon : CheckboxOutlineIcon}
+            tooltipText="Mark as Complete"
+            isCompleted={isCompleted}
+          />
+          <ActionButton
+            onClick={handleEditNote}
+            Icon={PencilIcon}
+            tooltipText="Edit"
+            isCompleted={isCompleted}
+          />
+          <ActionButton
+            onClick={handleDeleteNote}
+            Icon={TrashIcon}
+            tooltipText="Delete"
+            isCompleted={isCompleted}
+          />
         </div>
       </div>
-      <p className="text-gray-900-87 font-semibold text-2xl">{title}</p>
+      <p
+        className={`font-semibold text-2xl ${
+          isCompleted ? "text-gray-900-36 line-through" : "text-gray-900-87"
+        }`}
+      >
+        {title}
+      </p>
       <div className="flex-1">
-        {description && <p className="text-gray-900-87">{description}</p>}
+        {description && (
+          <p
+            className={`${
+              isCompleted ? "text-gray-900-36 line-through" : "text-gray-900-87"
+            }`}
+          >
+            {description}
+          </p>
+        )}
       </div>
       <p className={`text-end text-sm text-gray-900-60 ${nunito.className}`}>
         {formatDate(updatedAt)}

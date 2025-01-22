@@ -8,5 +8,6 @@ export type Note = {
   title: string;
   category: Category;
   description?: string;
+  isCompleted: boolean;
   updatedAt: Date;
 };

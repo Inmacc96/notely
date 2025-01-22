@@ -4,7 +4,7 @@ import SelectInput from "./SelectInput";
 import { Note } from "../lib/type";
 import { CATEGORIES } from "../lib/constants";
 
-type formData = Omit<Note, "id" | "updatedAt">;
+type formData = Omit<Note, "id" | "updatedAt" | "isCompleted">;
 
 type FormNoteProps = {
   note?: Note;
@@ -33,9 +33,19 @@ const FormNote: React.FC<FormNoteProps> = ({ note }) => {
     }
     setValidationError("");
     if (note?.id) {
-      editNote({ ...formData, id: note.id, updatedAt: new Date() });
+      editNote({
+        ...formData,
+        id: note.id,
+        updatedAt: new Date(),
+        isCompleted: note.isCompleted,
+      });
     } else {
-      addNote({ ...formData, id: crypto.randomUUID(), updatedAt: new Date() });
+      addNote({
+        ...formData,
+        id: crypto.randomUUID(),
+        updatedAt: new Date(),
+        isCompleted: false,
+      });
     }
     closeModal();
   };

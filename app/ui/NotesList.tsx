@@ -4,13 +4,14 @@ import NoteCard from "./NoteCard";
 
 const NotesList = () => {
   const notes = useStore((state) => state.notes);
+  const completedNotes = useStore((state) => state.completedNotes);
   const sortedNotes = useMemo(() => {
     return notes.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
   }, [notes]);
 
   return (
     <section className="grid grid-cols-[repeat(3,_minmax(400px,_1fr))] gap-6">
-      {sortedNotes.map((note) => (
+      {[...sortedNotes, ...completedNotes].map((note) => (
         <NoteCard key={note.id} note={note} />
       ))}
     </section>
