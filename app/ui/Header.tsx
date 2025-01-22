@@ -1,7 +1,11 @@
+import { useStore } from "../lib/store";
 import AddNoteButton from "./AddNoteButton";
 import SearchIcon from "./icons/SearchIcon";
 
 const Header = () => {
+  const search = useStore((state) => state.search);
+  const setSearch = useStore((state) => state.setSearch);
+
   return (
     <header className="shadow-md">
       <div className="bg-white px-32 py-4 flex gap-6 max-w-screen-xl mx-auto">
@@ -17,6 +21,8 @@ const Header = () => {
             type="search"
             placeholder="Search"
             className="cursor-default pl-10 pr-6 py-3 w-full bg-gray-200 rounded-md placeholder:text-gray-900-87 focus:outline-none appearance-none"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <AddNoteButton />

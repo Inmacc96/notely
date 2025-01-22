@@ -10,6 +10,8 @@ interface Store {
   modal: { isShow: boolean; actionType: ActionType; payload?: unknown };
   showModal: (actionType: ActionType, payload?: unknown) => void;
   closeModal: () => void;
+  search: string;
+  setSearch: (value: string) => void;
 }
 
 export const useStore = create<Store>((set, get) => ({
@@ -42,5 +44,9 @@ export const useStore = create<Store>((set, get) => ({
   },
   closeModal: () => {
     set(() => ({ modal: { ...get().modal, isShow: false } }));
+  },
+  search: "",
+  setSearch: (value: string) => {
+    set({ search: value });
   },
 }));
