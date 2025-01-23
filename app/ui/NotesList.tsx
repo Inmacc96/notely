@@ -8,10 +8,15 @@ const NotesList = () => {
   const notes = useStore((state) => state.notes);
   const sortedNotes = useMemo(() => sortNotes(notes), [notes]);
   const search = useStore((state) => state.search);
+  const filter = useStore((state) => state.filter);
   const data = useMemo(() => {
-    if (!search) return sortedNotes;
-    return sortedNotes.filter((note) => note.title.includes(search));
-  }, [search, sortedNotes]);
+    const filteredNotes =
+      filter === "All"
+        ? sortedNotes
+        : sortedNotes.filter((note) => note.category === filter);
+
+    return filteredNotes.filter((note) => note.title.includes(search));
+  }, [search, sortedNotes, filter]);
 
   if (data.length === 0) {
     const imageSrc = search ? "/search-results.svg" : "/empty-notes.svg";
@@ -19,7 +24,7 @@ const NotesList = () => {
     const message = search ? "No notes found" : "You don't have any notes";
 
     return (
-      <section className="pt-12 w-full flex flex-col items-center justify-center gap-6">
+      <section className="mt-12 w-full flex flex-col items-center justify-center gap-6">
         <Image
           src={imageSrc}
           width={160}
@@ -33,7 +38,7 @@ const NotesList = () => {
   }
 
   return (
-    <section className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-6">
+    <section className="mt-8 grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-6">
       {data.map((note) => (
         <NoteCard key={note.id} note={note} />
       ))}

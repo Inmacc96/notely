@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ActionType, Note } from "./type";
+import { ActionType, Category, Note } from "./type";
 
 interface Store {
   notes: Note[];
@@ -12,6 +12,8 @@ interface Store {
   closeModal: () => void;
   search: string;
   setSearch: (value: string) => void;
+  filter: Category | "All";
+  setFilter: (value: Category | "All") => void;
 }
 
 export const useStore = create<Store>((set, get) => ({
@@ -48,5 +50,9 @@ export const useStore = create<Store>((set, get) => ({
   search: "",
   setSearch: (value: string) => {
     set({ search: value });
+  },
+  filter: "All",
+  setFilter: (value: Category | "All") => {
+    set({ filter: value });
   },
 }));
