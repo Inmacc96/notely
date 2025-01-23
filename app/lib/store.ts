@@ -14,6 +14,8 @@ interface Store {
   setSearch: (value: string) => void;
   filter: Category | "All";
   setFilter: (value: Category | "All") => void;
+  showCompletedNotes: boolean;
+  toggleShowCompletedNotes: () => void;
 }
 
 export const useStore = create<Store>((set, get) => ({
@@ -54,5 +56,9 @@ export const useStore = create<Store>((set, get) => ({
   filter: "All",
   setFilter: (value: Category | "All") => {
     set({ filter: value });
+  },
+  showCompletedNotes: false,
+  toggleShowCompletedNotes: () => {
+    set({ showCompletedNotes: !get().showCompletedNotes });
   },
 }));

@@ -5,18 +5,21 @@ import { sortNotes } from "../lib/utils";
 import Image from "next/image";
 
 const NotesList = () => {
-  const notes = useStore((state) => state.notes);
-  const sortedNotes = useMemo(() => sortNotes(notes), [notes]);
+  const allNotes = useStore((state) => state.notes);
+  const sortedNotes = useMemo(() => sortNotes(allNotes), [allNotes]);
   const search = useStore((state) => state.search);
   const filter = useStore((state) => state.filter);
+  const showCompletedNotes = useStore((state) => state.showCompletedNotes);
   const data = useMemo(() => {
+    const notes = showCompletedNotes
+      ? sortedNotes.filter((note) => note.completedAt)
+      : sortedNotes;
     const filteredNotes =
       filter === "All"
-        ? sortedNotes
-        : sortedNotes.filter((note) => note.category === filter);
-
+        ? notes
+        : notes.filter((note) => note.category === filter);
     return filteredNotes.filter((note) => note.title.includes(search));
-  }, [search, sortedNotes, filter]);
+  }, [sortedNotes, search, filter, showCompletedNotes]);
 
   if (data.length === 0) {
     const imageSrc = search ? "/search-results.svg" : "/empty-notes.svg";
