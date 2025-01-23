@@ -7,8 +7,8 @@ const Header = () => {
   const setSearch = useStore((state) => state.setSearch);
 
   return (
-    <header className="shadow-md">
-      <div className="bg-white px-32 py-4 flex gap-6 max-w-screen-xl mx-auto">
+    <header className="shadow-md bg-white">
+      <div className="flex gap-6 max-w-screen-xl mx-auto px-6 py-4">
         <div className="flex-1 text-gray-900-87 relative">
           <label
             htmlFor="search"

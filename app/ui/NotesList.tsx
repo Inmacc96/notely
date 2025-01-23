@@ -20,7 +20,7 @@ const NotesList = () => {
     );
 
   return (
-    <section className="grid grid-cols-[repeat(3,_minmax(400px,_1fr))] gap-6">
+    <section className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-6">
       {data.map((note) => (
         <NoteCard key={note.id} note={note} />
       ))}
