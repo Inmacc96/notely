@@ -24,7 +24,11 @@ const NotesList = () => {
   if (data.length === 0) {
     const imageSrc = search ? "/search-results.svg" : "/empty-notes.svg";
     const imageAlt = search ? "no-search-results" : "empty-notes";
-    const message = search ? "No notes found" : "You don't have any notes";
+    const message = search
+      ? "No notes found"
+      : showCompletedNotes
+      ? "You don't have any completed notes"
+      : "You don't have any notes";
 
     return (
       <section className="mt-12 w-full flex flex-col items-center justify-center gap-6">
