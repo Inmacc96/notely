@@ -1,3 +1,5 @@
+import NotesList from "./NotesList";
+
 const NotesView = () => {
   return (
     <main className="flex-1 overflow-y-scroll bg-gray-200">
@@ -6,8 +8,8 @@ const NotesView = () => {
         {/* <section className="w-full flex justify-between mt-4 items-center">
           <NoteFilters />
           <CompletedNotesFilter />
-        </section>
-        <NotesList /> */}
+        </section>*/}
+        <NotesList />
       </div>
     </main>
   );

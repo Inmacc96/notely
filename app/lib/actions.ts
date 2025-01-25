@@ -3,6 +3,7 @@ import { z } from "zod";
 import { CATEGORIES } from "./constants";
 import { sql } from "@vercel/postgres";
 import { NoteFormData } from "../ui/FormNote";
+import { revalidatePath } from "next/cache";
 
 const NoteScheme = z.object({
   title: z.string({ invalid_type_error: "This field is required" }),
@@ -33,4 +34,5 @@ export const addNote = async (formData: NoteFormData) => {
       message: "Database Error: Failed to Create Note.",
     };
   }
+  revalidatePath("/");
 };
