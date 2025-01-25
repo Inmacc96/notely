@@ -29,25 +29,28 @@ const MODAL_CONFIGS: ModalConfigs = {
 };
 
 const Modal = () => {
+  const isShowModal = useStore((state) => state.modal.isShow);
   const { actionType, payload } = useStore((state) => state.modal);
   const closeModal = useStore((state) => state.closeModal);
   const { title, content } = MODAL_CONFIGS[actionType];
 
   return (
-    <div className="inset-0 fixed bg-black-32 flex items-center justify-center">
-      <div className="rounded-xl shadow-xl bg-white p-6 space-y-4">
-        <div className="flex justify-between items-center">
-          <p className="text-2xl font-semibold text-gray-900-87">{title}</p>
-          <button
-            onClick={closeModal}
-            className="p-2 rounded-full hover:bg-black-12 transition-all duration-300"
-          >
-            <CloseIcon />
-          </button>
+    isShowModal && (
+      <div className="inset-0 fixed bg-black-32 flex items-center justify-center">
+        <div className="rounded-xl shadow-xl bg-white p-6 space-y-4">
+          <div className="flex justify-between items-center">
+            <p className="text-2xl font-semibold text-gray-900-87">{title}</p>
+            <button
+              onClick={closeModal}
+              className="p-2 rounded-full hover:bg-black-12 transition-all duration-300"
+            >
+              <CloseIcon />
+            </button>
+          </div>
+          {content(payload)}
         </div>
-        {content(payload)}
       </div>
-    </div>
+    )
   );
 };
 

@@ -1,3 +1,4 @@
+"use client";
 import { useStore } from "../lib/store";
 import AddNoteButton from "./AddNoteButton";
 import SearchIcon from "./icons/SearchIcon";

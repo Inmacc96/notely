@@ -1,3 +1,4 @@
+"use client";
 import { CATEGORIES } from "../lib/constants";
 import { useStore } from "../lib/store";
 

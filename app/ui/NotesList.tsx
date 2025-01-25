@@ -1,3 +1,4 @@
+"use client"
 import { useMemo } from "react";
 import { useStore } from "../lib/store";
 import NoteCard from "./NoteCard";
