@@ -3,8 +3,10 @@ import { useStore } from "../lib/store";
 import SelectInput from "./SelectInput";
 import { Note } from "../lib/type";
 import { CATEGORIES } from "../lib/constants";
+import { addNote } from "../lib/actions";
+import { toast } from "react-toastify";
 
-type formData = Omit<Note, "id" | "updatedAt" | "completedAt">;
+export type NoteFormData = Omit<Note, "id" | "updatedAt" | "completedAt">;
 
 type FormNoteProps = {
   note?: Note;
@@ -12,47 +14,33 @@ type FormNoteProps = {
 
 const FormNote: React.FC<FormNoteProps> = ({ note }) => {
   const closeModal = useStore((state) => state.closeModal);
-  const addNote = useStore((state) => state.addNote);
-  const editNote = useStore((state) => state.editNote);
-  const [formData, setFormData] = useState<formData>({
+  const [formData, setFormData] = useState<NoteFormData>({
     title: note?.title ?? "",
     category: note?.category ?? "Personal",
     description: note?.description ?? "",
   });
   const [validationError, setValidationError] = useState("");
 
-  const handleChange = (property: keyof formData, value: string) => {
+  const handleChange = (property: keyof NoteFormData, value: string) => {
     setFormData((prev) => ({ ...prev, [property]: value }));
   };
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
+  const handleAction = async () => {
     if (formData.title.length === 0) {
       setValidationError("This field is required");
       return;
     }
     setValidationError("");
-    if (note?.id) {
-      editNote({
-        ...formData,
-        id: note.id,
-        updatedAt: new Date(),
-      });
+    const response = await addNote(formData);
+    if (response?.message) {
+      toast.error(response.message);
     } else {
-      addNote({
-        ...formData,
-        id: crypto.randomUUID(),
-        updatedAt: new Date(),
-      });
+      closeModal();
     }
-    closeModal();
   };
 
   return (
-    <form
-      className="w-[500px] grid grid-cols-2 gap-x-6"
-      onSubmit={handleSubmit}
-    >
+    <form action={handleAction} className="w-[500px] grid grid-cols-2 gap-x-6">
       <div className="relative col-span-1 space-y-2">
         <label className="text-sm font-bold text-gray-900-87" htmlFor="title">
           Title
