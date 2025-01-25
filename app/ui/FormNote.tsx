@@ -3,7 +3,7 @@ import { useStore } from "../lib/store";
 import SelectInput from "./SelectInput";
 import { Note } from "../lib/type";
 import { CATEGORIES } from "../lib/constants";
-import { addNote } from "../lib/actions";
+import { addNote, editNote } from "../lib/actions";
 import { toast } from "react-toastify";
 
 export type NoteFormData = Omit<Note, "id" | "updatedAt" | "completedAt">;
@@ -31,7 +31,9 @@ const FormNote: React.FC<FormNoteProps> = ({ note }) => {
       return;
     }
     setValidationError("");
-    const response = await addNote(formData);
+    const response = note?.id
+      ? await editNote(note.id, formData)
+      : await addNote(formData);
     if (response?.message) {
       toast.error(response.message);
     } else {

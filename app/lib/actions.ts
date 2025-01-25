@@ -36,3 +36,32 @@ export const addNote = async (formData: NoteFormData) => {
   }
   revalidatePath("/");
 };
+
+export const editNote = async (noteId: string, formData: NoteFormData) => {
+  const validatedFields = NoteScheme.safeParse(formData);
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Edit Note",
+    };
+  }
+
+  const { title, category, description } = validatedFields.data;
+  const updatedAt = new Date().toISOString();
+
+  try {
+    await sql`
+    UPDATE notes
+    SET title=${title},category=${category},description=${description},updated_at=${updatedAt}
+    WHERE id=${noteId}
+    `;
+  } catch (err) {
+    console.error(err);
+    return {
+      message: "Database Error: Failed to Create Note.",
+    };
+  }
+
+  revalidatePath("/");
+};
