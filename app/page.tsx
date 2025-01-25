@@ -1,3 +1,4 @@
+import { ToastContainer } from "react-toastify";
 import Header from "./ui/Header";
 import Modal from "./ui/Modal";
 import NotesView from "./ui/NotesView";
@@ -8,6 +9,7 @@ const Home = async () => {
       <Header />
       <NotesView />
       <Modal />
+      <ToastContainer theme="colored" />
     </>
   );
 };
