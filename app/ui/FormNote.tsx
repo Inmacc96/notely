@@ -25,15 +25,30 @@ const FormNote: React.FC<FormNoteProps> = ({ note }) => {
     setFormData((prev) => ({ ...prev, [property]: value }));
   };
 
+  const isNoteUnchanged = () =>
+    note?.id &&
+    note.title === formData.title &&
+    note.category === formData.category &&
+    note.description === formData.description;
+
+  const saveNote = async () => {
+    return note?.id
+      ? await editNote(note.id, formData)
+      : await addNote(formData);
+  };
+
   const handleAction = async () => {
     if (formData.title.length === 0) {
       setValidationError("This field is required");
       return;
     }
     setValidationError("");
-    const response = note?.id
-      ? await editNote(note.id, formData)
-      : await addNote(formData);
+
+    if (isNoteUnchanged()) {
+      closeModal();
+      return;
+    }
+    const response = await saveNote();
     if (response?.message) {
       toast.error(response.message);
     } else {
