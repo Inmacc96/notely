@@ -1,11 +1,21 @@
 "use client";
-import { useStore } from "../lib/store";
+import { useSearchParams, useRouter } from "next/navigation";
 import AddNoteButton from "./AddNoteButton";
 import SearchIcon from "./icons/SearchIcon";
 
 const Header = () => {
-  const search = useStore((state) => state.search);
-  const setSearch = useStore((state) => state.setSearch);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const handleSearch = (search: string) => {
+    const params = new URLSearchParams(searchParams);
+    if (search) {
+      params.set("query", search);
+    } else {
+      params.delete("query");
+    }
+    router.replace(`?${params.toString()}`);
+  };
 
   return (
     <header className="shadow-md bg-white">
@@ -19,11 +29,12 @@ const Header = () => {
           </label>
           <input
             id="search"
+            name="search"
             type="search"
             placeholder="Search"
             className="cursor-default pl-10 pr-6 py-3 w-full bg-gray-200 rounded-md placeholder:text-gray-900-87 focus:outline-none appearance-none"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => handleSearch(e.target.value)}
+            defaultValue={searchParams.get("query")?.toString()}
           />
         </div>
         <AddNoteButton />

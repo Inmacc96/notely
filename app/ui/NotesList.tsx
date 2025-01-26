@@ -1,8 +1,13 @@
 import NoteCard from "./NoteCard";
 import { fetchNotes } from "../lib/data";
+import Image from "next/image";
 
-const NotesList = async () => {
-  const allNotes = await fetchNotes();
+type NotesListProps = {
+  query: string;
+};
+
+const NotesList: React.FC<NotesListProps> = async ({ query }) => {
+  const notes = await fetchNotes(query);
   /*   const search = useStore((state) => state.search);
   const filter = useStore((state) => state.filter);
   const showCompletedNotes = useStore((state) => state.showCompletedNotes);
@@ -16,15 +21,15 @@ const NotesList = async () => {
         : notes.filter((note) => note.category === filter);
     return filteredNotes.filter((note) => note.title.includes(search));
   }, [sortedNotes, search, filter, showCompletedNotes]); */
-  /* 
-  if (data.length === 0) {
-    const imageSrc = search ? "/search-results.svg" : "/empty-notes.svg";
-    const imageAlt = search ? "no-search-results" : "empty-notes";
-    const message = search
+
+  if (notes.length === 0) {
+    const imageSrc = query ? "/search-results.svg" : "/empty-notes.svg";
+    const imageAlt = query ? "no-search-results" : "empty-notes";
+    const message = query
       ? "No notes found"
-      : showCompletedNotes
-      ? "You don't have any completed notes"
-      : "You don't have any notes";
+      : /*   : showCompletedNotes
+      ? "You don't have any completed notes" */
+        "You don't have any notes";
 
     return (
       <section className="mt-12 w-full flex flex-col items-center justify-center gap-6">
@@ -38,11 +43,11 @@ const NotesList = async () => {
         <p className="text-gray-900 font-medium text-lg">{message}</p>
       </section>
     );
-  } */
+  }
 
   return (
     <section className="mt-8 grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-6">
-      {allNotes.map((note) => (
+      {notes.map((note) => (
         <NoteCard key={note.id} note={note} />
       ))}
     </section>

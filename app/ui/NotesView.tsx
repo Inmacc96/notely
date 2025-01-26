@@ -1,6 +1,10 @@
 import NotesList from "./NotesList";
 
-const NotesView = () => {
+type NotesViewProps = {
+  query: string;
+};
+
+const NotesView: React.FC<NotesViewProps> = ({ query }) => {
   return (
     <main className="flex-1 overflow-y-scroll bg-gray-200">
       <div className="max-w-screen-xl mx-auto px-6 py-4">
@@ -9,7 +13,7 @@ const NotesView = () => {
           <NoteFilters />
           <CompletedNotesFilter />
         </section>*/}
-        <NotesList />
+        <NotesList query={query} />
       </div>
     </main>
   );
