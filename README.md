@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Notely app
 
-## Getting Started
+Application that allows users to manage their tasks with notes
 
-First, run the development server:
+## :pushpin: Table of contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- [Introduction](#rocket-introduction)
+- [Usage](#wrench-usage)
+- [Built with](#hammer-built-with)
+  - [Frontend](#computer-frontend)
+  - [Deploy](#package-deployment)
+- [Links](#link-links)
+- [Author](#woman-author)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## :rocket: Introduction
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+![App](./images/app.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## :wrench: Usage
 
-## Learn More
+To deploy the project locally, follow these steps:
 
-To learn more about Next.js, take a look at the following resources:
+1. Clone my repository with the command `git clone https://github.com/Inmacc96/notely.git`.
+2. Next, run the following commands:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `pnpm install`
+- `pnpm dev`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Finally, you will have the page at http://localhost:3000/.
 
-## Deploy on Vercel
+## :hammer: Built with
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### :computer: Frontend
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next JS](https://nextjs.org/): React Framework used.
+- [typescript](https://www.typescriptlang.org/): Programming language used.
+- [tailwindcss](https://tailwindcss.com/): To style the application.
+- [zod](https://zod.dev/): To validation data from server side
+- [zustand](https://zustand.docs.pmnd.rs/): To manage app global state
+
+### :package: Deployment
+
+- [Vercel](https://www.vercel.com/)
+
+## :link: Links
+
+- Solution URL: [https://github.com/Inmacc96/notely.git](https://github.com/Inmacc96/notely.git)
+- Live Site URL: [https://notely-omega.vercel.app/](https://notely-omega.vercel.app/)
+
+## :woman: Author
+
+- GitHub - [inmacc96](https://github.com/Inmacc96)
+- LinkedIn - [Inma Caballero Carrero](https://www.linkedin.com/in/inmacaballerocarrero/)
