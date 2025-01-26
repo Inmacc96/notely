@@ -34,7 +34,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
 
 
   return (
-    <article className="bg-white rounded-2xl p-5 h-[248px] flex flex-col gap-4 shadow-lg">
+    <article className="bg-white rounded-2xl p-5 min-h-[248px] flex flex-col gap-4 shadow-lg">
       <div className="flex justify-between">
         <BadgeCategory category={category} isNeutralStyle={isCompleted} />
         <div className="flex gap-1.5 items-center mr-1.5">
