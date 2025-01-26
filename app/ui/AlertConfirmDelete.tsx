@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+import { deleteNote } from "../lib/actions";
 import { useStore } from "../lib/store";
 
 type AlertConfirmDeleteProps = {
@@ -6,11 +8,14 @@ type AlertConfirmDeleteProps = {
 
 const AlertConfirmDelete: React.FC<AlertConfirmDeleteProps> = ({ noteId }) => {
   const closeModal = useStore((state) => state.closeModal);
-  const deleteNote = useStore((state) => state.deleteNote);
 
-  const handleDeleteNote = () => {
-    deleteNote(noteId);
-    closeModal();
+  const handleDeleteNote = async () => {
+    const response = await deleteNote(noteId);
+    if (response?.message) {
+      toast.error(response.message);
+    } else {
+      closeModal();
+    }
   };
 
   return (

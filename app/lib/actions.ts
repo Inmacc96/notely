@@ -59,9 +59,20 @@ export const editNote = async (noteId: string, formData: NoteFormData) => {
   } catch (err) {
     console.error(err);
     return {
-      message: "Database Error: Failed to Create Note.",
+      message: "Database Error: Failed to Edit Note.",
     };
   }
+  revalidatePath("/");
+};
 
+export const deleteNote = async (noteId: string) => {
+  try {
+    await sql`DELETE FROM notes WHERE id=${noteId}`;
+  } catch (err) {
+    console.error(err);
+    return {
+      message: "Database Error: Failed to Delete Note.",
+    };
+  }
   revalidatePath("/");
 };

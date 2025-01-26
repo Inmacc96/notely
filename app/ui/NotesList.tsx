@@ -3,6 +3,42 @@ import { fetchNotes } from "../lib/data";
 
 const NotesList = async () => {
   const allNotes = await fetchNotes();
+  /*   const search = useStore((state) => state.search);
+  const filter = useStore((state) => state.filter);
+  const showCompletedNotes = useStore((state) => state.showCompletedNotes);
+  const data = useMemo(() => {
+    const notes = showCompletedNotes
+      ? sortedNotes.filter((note) => note.completedAt)
+      : sortedNotes;
+    const filteredNotes =
+      filter === "All"
+        ? notes
+        : notes.filter((note) => note.category === filter);
+    return filteredNotes.filter((note) => note.title.includes(search));
+  }, [sortedNotes, search, filter, showCompletedNotes]); */
+  /* 
+  if (data.length === 0) {
+    const imageSrc = search ? "/search-results.svg" : "/empty-notes.svg";
+    const imageAlt = search ? "no-search-results" : "empty-notes";
+    const message = search
+      ? "No notes found"
+      : showCompletedNotes
+      ? "You don't have any completed notes"
+      : "You don't have any notes";
+
+    return (
+      <section className="mt-12 w-full flex flex-col items-center justify-center gap-6">
+        <Image
+          src={imageSrc}
+          width={160}
+          height={160}
+          alt={imageAlt}
+          priority={true}
+        />
+        <p className="text-gray-900 font-medium text-lg">{message}</p>
+      </section>
+    );
+  } */
 
   return (
     <section className="mt-8 grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-6">
