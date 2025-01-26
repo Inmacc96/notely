@@ -5,18 +5,27 @@ import NotesView from "./ui/NotesView";
 import { Category } from "./lib/type";
 
 type HomeProps = {
-  searchParams: Promise<{ query?: string; category?: Category }>;
+  searchParams: Promise<{
+    query?: string;
+    category?: Category;
+    showCompletedNotes?: boolean;
+  }>;
 };
 
 const Home: React.FC<HomeProps> = async (props) => {
   const searchParams = await props.searchParams;
   const query = searchParams.query ?? "";
   const categoryFilter = searchParams.category;
+  const showCompletedNotes = !!searchParams.showCompletedNotes;
 
   return (
     <>
       <Header />
-      <NotesView query={query} categoryFilter={categoryFilter} />
+      <NotesView
+        query={query}
+        categoryFilter={categoryFilter}
+        showCompletedNotes={showCompletedNotes}
+      />
       <Modal />
       <ToastContainer theme="colored" />
     </>

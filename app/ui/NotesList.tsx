@@ -6,35 +6,24 @@ import { Category } from "../lib/type";
 type NotesListProps = {
   query: string;
   categoryFilter?: Category;
+  showCompletedNotes: boolean;
 };
 
 const NotesList: React.FC<NotesListProps> = async ({
   query,
   categoryFilter,
+  showCompletedNotes,
 }) => {
-  const notes = await fetchNotes(query, categoryFilter);
-  /*   const search = useStore((state) => state.search);
-  const filter = useStore((state) => state.filter);
-  const showCompletedNotes = useStore((state) => state.showCompletedNotes);
-  const data = useMemo(() => {
-    const notes = showCompletedNotes
-      ? sortedNotes.filter((note) => note.completedAt)
-      : sortedNotes;
-    const filteredNotes =
-      filter === "All"
-        ? notes
-        : notes.filter((note) => note.category === filter);
-    return filteredNotes.filter((note) => note.title.includes(search));
-  }, [sortedNotes, search, filter, showCompletedNotes]); */
+  const notes = await fetchNotes(query, showCompletedNotes, categoryFilter);
 
   if (notes.length === 0) {
     const imageSrc = query ? "/search-results.svg" : "/empty-notes.svg";
     const imageAlt = query ? "no-search-results" : "empty-notes";
     const message = query
       ? "No notes found"
-      : /*   : showCompletedNotes
-      ? "You don't have any completed notes" */
-        "You don't have any notes";
+      : showCompletedNotes
+      ? "You don't have any completed notes"
+      : "You don't have any notes";
 
     return (
       <section className="mt-12 w-full flex flex-col items-center justify-center gap-6">

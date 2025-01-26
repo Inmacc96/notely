@@ -1,13 +1,23 @@
 "use client";
-import { useStore } from "../lib/store";
+import { useRouter, useSearchParams } from "next/navigation";
 import ChecboxIcon from "./icons/ChecboxIcon";
 import CheckboxOutlineIcon from "./icons/CheckboxOutlineIcon";
 
 const CompletedNotesFilter = () => {
-  const showCompletedNotes = useStore((state) => state.showCompletedNotes);
-  const toggleShowCompletedNotes = useStore(
-    (state) => state.toggleShowCompletedNotes
-  );
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const showCompletedNotes = !!searchParams.get("showCompletedNotes");
+
+  const toggleShowCompletedNotes = () => {
+    const params = new URLSearchParams(searchParams);
+    if (params.get("showCompletedNotes")) {
+      params.delete("showCompletedNotes");
+    } else {
+      params.set("showCompletedNotes", "true");
+    }
+    router.replace(`?${params.toString()}`);
+  };
+
   return (
     <div className="flex gap-2 items-center">
       <button onClick={toggleShowCompletedNotes} className="text-gray-600">

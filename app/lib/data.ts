@@ -4,6 +4,7 @@ import { sortNotes } from "./utils";
 
 export const fetchNotes = async (
   query: string,
+  showCompletedNotes: boolean,
   categoryFilter?: Category
 ): Promise<Note[]> => {
   try {
@@ -19,10 +20,14 @@ export const fetchNotes = async (
         updatedAt: new Date(note.updated_at),
       }))
     );
+    // Show completed Notes
+    const notes = showCompletedNotes
+      ? sortedNotes.filter((note) => note.completedAt)
+      : sortedNotes;
     // Filter
     const filteredNotes = !categoryFilter
-      ? sortedNotes
-      : sortedNotes.filter((note) => note.category === categoryFilter);
+      ? notes
+      : notes.filter((note) => note.category === categoryFilter);
     // Search
     return filteredNotes.filter((note) => note.title.includes(query));
   } catch (error) {
