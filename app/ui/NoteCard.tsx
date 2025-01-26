@@ -20,7 +20,6 @@ const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
   const isCompleted = !!completedAt;
 
   const showModal = useStore((state) => state.showModal);
-  //const toggleCompleted = useStore((state) => state.toggleCompleted);
 
   const handleEditNote = () => {
     showModal("edit", note);
