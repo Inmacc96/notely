@@ -1,19 +1,29 @@
 "use client";
+import { useRouter, useSearchParams } from "next/navigation";
 import { CATEGORIES } from "../lib/constants";
-import { useStore } from "../lib/store";
+import { Category } from "../lib/type";
 
 const NoteFilters = () => {
-  const filter = useStore((state) => state.filter);
-  const setFilter = useStore((state) => state.setFilter);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const filter = searchParams.get("category") ?? "All";
+
+  const handleFilter = (category: Category | "All") => {
+    const params = new URLSearchParams(searchParams);
+    if (category !== "All") {
+      params.set("category", category);
+    } else {
+      params.delete("category");
+    }
+    router.replace(`?${params.toString()}`);
+  };
 
   return (
     <div>
       {(["All", ...CATEGORIES] as const).map((category) => (
         <button
           key={category}
-          onClick={() => {
-            setFilter(category);
-          }}
+          onClick={() => handleFilter(category)}
           className={`w-[100px] py-2 uppercase font-medium text-tracking-widest relative ${
             filter === category
               ? "text-blue-400"

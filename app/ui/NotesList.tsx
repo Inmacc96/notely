@@ -1,13 +1,18 @@
 import NoteCard from "./NoteCard";
 import { fetchNotes } from "../lib/data";
 import Image from "next/image";
+import { Category } from "../lib/type";
 
 type NotesListProps = {
   query: string;
+  categoryFilter?: Category;
 };
 
-const NotesList: React.FC<NotesListProps> = async ({ query }) => {
-  const notes = await fetchNotes(query);
+const NotesList: React.FC<NotesListProps> = async ({
+  query,
+  categoryFilter,
+}) => {
+  const notes = await fetchNotes(query, categoryFilter);
   /*   const search = useStore((state) => state.search);
   const filter = useStore((state) => state.filter);
   const showCompletedNotes = useStore((state) => state.showCompletedNotes);

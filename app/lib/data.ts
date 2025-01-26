@@ -1,8 +1,11 @@
 import { sql } from "@vercel/postgres";
-import { Note, NoteDTO } from "./type";
+import { Category, Note, NoteDTO } from "./type";
 import { sortNotes } from "./utils";
 
-export const fetchNotes = async (query: string): Promise<Note[]> => {
+export const fetchNotes = async (
+  query: string,
+  categoryFilter?: Category
+): Promise<Note[]> => {
   try {
     const data = await sql<NoteDTO>`SELECT * FROM notes`;
     const sortedNotes = sortNotes(
@@ -16,7 +19,12 @@ export const fetchNotes = async (query: string): Promise<Note[]> => {
         updatedAt: new Date(note.updated_at),
       }))
     );
-    return sortedNotes.filter((note) => note.title.includes(query));
+    // Filter
+    const filteredNotes = !categoryFilter
+      ? sortedNotes
+      : sortedNotes.filter((note) => note.category === categoryFilter);
+    // Search
+    return filteredNotes.filter((note) => note.title.includes(query));
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch notes data.");
