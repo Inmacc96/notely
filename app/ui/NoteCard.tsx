@@ -1,4 +1,5 @@
 "use client";
+import { toggleCompletedNote } from "../lib/actions";
 import { useStore } from "../lib/store";
 import { Note } from "../lib/type";
 import { formatDate } from "../lib/utils";
@@ -15,7 +16,7 @@ type NoteCardProps = {
 };
 
 const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
-  const { title, description, category, updatedAt, completedAt } = note;
+  const { id, title, description, category, updatedAt, completedAt } = note;
   const isCompleted = !!completedAt;
 
   const showModal = useStore((state) => state.showModal);
@@ -29,8 +30,8 @@ const NoteCard: React.FC<NoteCardProps> = ({ note }) => {
     showModal("delete", note.id);
   };
 
-  const handleCompleteNote = () => {
-    //toggleCompleted(id);
+  const handleCompleteNote = async () => {
+    await toggleCompletedNote(id);
   };
 
   return (

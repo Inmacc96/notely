@@ -4,6 +4,7 @@ import { CATEGORIES } from "./constants";
 import { sql } from "@vercel/postgres";
 import { NoteFormData } from "../ui/FormNote";
 import { revalidatePath } from "next/cache";
+import { NoteDTO } from "./type";
 
 const NoteScheme = z.object({
   title: z.string({ invalid_type_error: "This field is required" }),
@@ -72,6 +73,27 @@ export const deleteNote = async (noteId: string) => {
     console.error(err);
     return {
       message: "Database Error: Failed to Delete Note.",
+    };
+  }
+  revalidatePath("/");
+};
+
+export const toggleCompletedNote = async (noteId: string) => {
+  try {
+    const data = await sql<NoteDTO>`SELECT * FROM notes WHERE id=${noteId}`;
+    const note = data.rows[0];
+    const completedAt =
+      note.completed_at !== null ? null : new Date().toISOString();
+
+    await sql`
+    UPDATE notes
+    SET completed_At=${completedAt}
+    WHERE id=${noteId}
+    `;
+  } catch (err) {
+    console.error(err);
+    return {
+      message: "Database Error: Failed to Mark/UnMark Note As Completed",
     };
   }
   revalidatePath("/");
