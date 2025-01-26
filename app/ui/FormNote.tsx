@@ -94,9 +94,13 @@ const FormNote: React.FC<FormNoteProps> = ({ note }) => {
             Description{" "}
             <span className="text-gray-900-60 font-normal">{`(optional)`}</span>
           </label>
-          <p className="text-gray-900-60 text-sm">{`${
-            formData.description?.length ?? 0
-          }/200`}</p>
+          <p
+            className={`text-sm ${
+              formData.description?.length === 200
+                ? "text-red-500"
+                : "text-gray-900-60"
+            }`}
+          >{`${formData.description?.length ?? 0}/200`}</p>
         </div>
         <textarea
           id="description"
